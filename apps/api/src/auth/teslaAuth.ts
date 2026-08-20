@@ -1,6 +1,6 @@
 import { createHash, randomBytes } from "node:crypto";
 
-import { decryptJson, encryptJson } from "@ai-journey-dj/crypto";
+import { decryptJson, encryptJson } from "@longplay/crypto";
 
 import type { AppConfig } from "../config/env.js";
 import type { StoredCredentials, Store } from "../db/store.js";

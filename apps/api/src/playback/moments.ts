@@ -2,9 +2,9 @@
  * Pure Momente-Erkennung — kein I/O (Muster: reconcile.ts). Die Historie kommt aus
  * recentTelemetry und ist NEUESTE ZUERST sortiert (history[0] = aktuellster Snapshot).
  */
-import type { ChargingState, JourneyContext, JourneyPhase } from "@ai-journey-dj/core";
-import { normalizeText } from "@ai-journey-dj/core";
-import type { StoryAct } from "@ai-journey-dj/recommendation";
+import type { ChargingState, JourneyContext, JourneyPhase } from "@longplay/core";
+import { normalizeText } from "@longplay/core";
+import type { StoryAct } from "@longplay/recommendation";
 
 /** Nav-target names that signal an interim charge stop rather than the trip's real destination. */
 const CHARGER_DESTINATION_RE =

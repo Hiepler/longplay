@@ -1,4 +1,4 @@
-import { normalizeText } from "@ai-journey-dj/core";
+import { normalizeText } from "@longplay/core";
 
 /**
  * Heuristic that flags spoken-word content — audio dramas (Hörspiele), audiobooks (Hörbücher),

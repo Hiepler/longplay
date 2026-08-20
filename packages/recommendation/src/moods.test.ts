@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { JourneyContext } from "@ai-journey-dj/core";
+import type { JourneyContext } from "@longplay/core";
 
 import { MOODS, resolveMood } from "./moods";
 import type { TripArc } from "./context-signals.js";

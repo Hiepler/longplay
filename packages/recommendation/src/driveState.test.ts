@@ -1,4 +1,4 @@
-import type { NormalizedTelemetryEvent } from "@ai-journey-dj/core";
+import type { NormalizedTelemetryEvent } from "@longplay/core";
 import { describe, expect, it } from "vitest";
 
 import { assessDriveState, stabilizeDriveMode } from "./driveState.js";

@@ -7,8 +7,8 @@ import type {
   SongCandidateRole,
   SongCandidateScores,
   TasteProfile,
-} from "@ai-journey-dj/core";
-import { clampConfidence, normalizeText, songKey } from "@ai-journey-dj/core";
+} from "@longplay/core";
+import { clampConfidence, normalizeText, songKey } from "@longplay/core";
 import { seededJitter } from "./variety.js";
 import { looksLikeSpokenWord } from "./spokenWord.js";
 import { releaseAgeDays } from "./releaseRadar.js";
@@ -409,7 +409,7 @@ export function buildJourneyPrompt(
   };
 
   return [
-    "You are AI Journey DJ, an expert road-trip music director.",
+    "You are Longplay, an expert road-trip music director.",
     "Curate real, released songs (artist/title) that feel hand-picked for THIS drive — as if each track",
     "were chosen the moment the car's mood, pace, and surroundings shifted.",
     "Use web search to verify releases and to include genuinely current charting or viral tracks alongside",
@@ -546,7 +546,7 @@ export interface GeminiSongScoutOptions {
 }
 
 const GEMINI_SYSTEM_INSTRUCTION = [
-  "You are AI Journey DJ. Use Google Search grounding to find real, released songs that match the",
+  "You are Longplay. Use Google Search grounding to find real, released songs that match the",
   "abstract journey context (destination, region, time, weather feel, pace bucket, phase, ETA, passengers).",
   "Blend classics with current charting or viral tracks. Each reason must reference at least two context",
   "signals so the set feels written for this exact drive.",
@@ -1037,7 +1037,7 @@ export class GeminiSongScout implements SongScout {
           parts: [
             {
               text: [
-                "You are AI Journey DJ. Return only JSON matching the schema.",
+                "You are Longplay. Return only JSON matching the schema.",
                 "Pick real, released songs that fit the journey context.",
                 "Never include streaming-service data, raw GPS, VINs, or user-library references.",
               ].join(" "),
@@ -2285,7 +2285,7 @@ export function buildLensPrompt(
         : `Local touch: prioritize current, well-loved songs in the LOCAL LANGUAGE of ${localPlace} by homegrown artists from there — make the set feel local without tourist clichés.`
       : "";
   return [
-    `You are AI Journey DJ curating the "${lens.key}" portion of a road-trip set.`,
+    `You are Longplay curating the "${lens.key}" portion of a road-trip set.`,
     lens.instruction,
     `Target energy: ${brief.targetEnergy.toFixed(2)} (0=calm, 1=high). Five-track energy curve: ${brief.energyCurve.map((value) => value.toFixed(2)).join(" -> ")}.`,
     `Intensity: ${brief.intensity}. Focus level: ${brief.focusLevel.toFixed(2)}. Social energy: ${brief.socialEnergy}. Mood: ${brief.moodWords.join(", ")}.`,

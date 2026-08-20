@@ -33,7 +33,7 @@ export interface LyricsResult {
 // LRCLIB asks for a descriptive User-Agent (name + version + contact); a bare/empty UA can be
 // rejected (403), which previously collapsed to "no lyrics" for every track.
 const USER_AGENT =
-  "AI-Journey-DJ/0.1.0 (+https://github.com/Hiepler/AiJourneyDj)";
+  "Longplay/0.1.0 (+https://github.com/Hiepler/longplay)";
 
 const LRC_STAMP = /\[(\d{1,2}):(\d{2})(?:[.:](\d{1,3}))?\]/g;
 // Enhanced-LRC per-word timing tags, e.g. "<00:12.50>" — stripped so they don't show as text.

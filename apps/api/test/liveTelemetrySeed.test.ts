@@ -2,11 +2,11 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-import { NoopOpenMusicClient } from "@ai-journey-dj/open-music";
-import type { NormalizedTelemetryEvent, SongCandidate } from "@ai-journey-dj/core";
-import type { SongScout } from "@ai-journey-dj/recommendation";
-import { MockSpotifyAdapter } from "@ai-journey-dj/spotify";
-import { MockTidalAdapter } from "@ai-journey-dj/tidal";
+import { NoopOpenMusicClient } from "@longplay/open-music";
+import type { NormalizedTelemetryEvent, SongCandidate } from "@longplay/core";
+import type { SongScout } from "@longplay/recommendation";
+import { MockSpotifyAdapter } from "@longplay/spotify";
+import { MockTidalAdapter } from "@longplay/tidal";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { SpotifyAuthService } from "../src/auth/spotifyAuth.js";

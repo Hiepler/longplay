@@ -1,5 +1,5 @@
 {
-  "name": "ai-journey-dj",
+  "name": "longplay",
   "version": "0.1.0",
   "private": true,
   "description": "Telemetry-aware AI music director for Tesla road trips — Spotify-first, self-hostable.",
@@ -14,14 +14,14 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "concurrently -n api,web -c cyan,green \"npm run dev -w @ai-journey-dj/api\" \"npm run dev -w @ai-journey-dj/web\"",
+    "dev": "concurrently -n api,web -c cyan,green \"npm run dev -w @longplay/api\" \"npm run dev -w @longplay/web\"",
     "dev:clean": "node scripts/free-dev-ports.mjs && npm run dev",
     "free-ports": "node scripts/free-dev-ports.mjs",
     "build": "npm run build --workspaces",
     "start:prod": "tsx apps/api/src/index.ts",
     "typecheck": "npm run typecheck --workspaces",
     "test": "npm --workspaces --if-present run test",
-    "test:e2e": "npm run test:e2e -w @ai-journey-dj/web",
+    "test:e2e": "npm run test:e2e -w @longplay/web",
     "test:watch": "npm --workspaces --if-present run test:watch",
     "lint": "eslint .",
     "format:check": "prettier --check ."

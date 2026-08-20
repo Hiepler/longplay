@@ -67,7 +67,7 @@ export async function geocodeFor(
     url.searchParams.set("zoom", "8");
     const response = await fetchImpl(url, {
       headers: {
-        "User-Agent": "AIJourneyDJ/1.0 (single-user journey soundtrack)",
+        "User-Agent": "Longplay/1.0 (single-user journey soundtrack)",
       },
       signal: AbortSignal.timeout(5_000),
     });
@@ -101,7 +101,7 @@ export async function forwardGeocodeFor(
     url.searchParams.set("limit", "1");
     const response = await fetchImpl(url, {
       headers: {
-        "User-Agent": "AIJourneyDJ/1.0 (single-user journey soundtrack)",
+        "User-Agent": "Longplay/1.0 (single-user journey soundtrack)",
       },
       signal: AbortSignal.timeout(5_000),
     });

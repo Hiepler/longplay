@@ -124,7 +124,7 @@ export async function connectSpotifyWebPlayer(
   options.existingPlayer?.disconnect();
 
   const player = new window.Spotify.Player({
-    name: "AI Journey DJ",
+    name: "Longplay",
     getOAuthToken: (callback) => callback(options.accessToken),
     volume: 0.85
   });

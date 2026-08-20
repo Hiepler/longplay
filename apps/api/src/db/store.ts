@@ -14,14 +14,14 @@ import type {
   SpeedBucket,
   TasteProfile,
   TemperatureBucket,
-} from "@ai-journey-dj/core";
-import { normalizeText, songKey } from "@ai-journey-dj/core";
-import { speedBucket, temperatureBucket } from "@ai-journey-dj/telemetry";
+} from "@longplay/core";
+import { normalizeText, songKey } from "@longplay/core";
+import { speedBucket, temperatureBucket } from "@longplay/telemetry";
 import {
   assessDriveState,
   timeOfDayBand,
   weatherFeel,
-} from "@ai-journey-dj/recommendation";
+} from "@longplay/recommendation";
 
 import type { Db } from "./database.js";
 

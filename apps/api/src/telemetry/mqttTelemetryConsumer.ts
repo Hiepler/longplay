@@ -1,7 +1,7 @@
 import mqtt from "mqtt";
 
-import type { NormalizedTelemetryEvent } from "@ai-journey-dj/core";
-import { normalizeFleetStream } from "@ai-journey-dj/telemetry";
+import type { NormalizedTelemetryEvent } from "@longplay/core";
+import { normalizeFleetStream } from "@longplay/telemetry";
 
 import type { AppConfig } from "../config/env.js";
 import type { JourneyService } from "../journeys/journeyService.js";

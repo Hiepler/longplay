@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import type { ResolvedTrack, SongCandidate } from "@ai-journey-dj/core";
-import { songKey } from "@ai-journey-dj/core";
+import type { ResolvedTrack, SongCandidate } from "@longplay/core";
+import { songKey } from "@longplay/core";
 
 import {
   MockSpotifyAdapter,
@@ -348,13 +348,13 @@ describe("spotify resolver", () => {
   it("creates deterministic mock Spotify playlists for adapter parity", async () => {
     const playlist = await new MockSpotifyAdapter().createPlaylist({
       accessToken: "mock",
-      name: "AI Journey DJ",
+      name: "Longplay",
       description: "Fallback parity",
     });
 
     expect(playlist).toMatchObject({
       id: expect.stringMatching(/^mock-spotify-playlist-/),
-      name: "AI Journey DJ",
+      name: "Longplay",
     });
     expect(playlist.url).toContain("open.spotify.com/playlist");
   });

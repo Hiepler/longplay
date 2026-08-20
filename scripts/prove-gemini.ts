@@ -1,4 +1,4 @@
-import { GeminiSongScout } from "@ai-journey-dj/recommendation";
+import { GeminiSongScout } from "@longplay/recommendation";
 
 const scout = new GeminiSongScout({
   apiKey: process.env.GEMINI_API_KEY,

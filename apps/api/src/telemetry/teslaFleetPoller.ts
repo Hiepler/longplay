@@ -1,5 +1,5 @@
-import type { NormalizedTelemetryEvent } from "@ai-journey-dj/core";
-import { normalizeFleetVehicleData } from "@ai-journey-dj/telemetry";
+import type { NormalizedTelemetryEvent } from "@longplay/core";
+import { normalizeFleetVehicleData } from "@longplay/telemetry";
 
 import type { AppConfig } from "../config/env.js";
 import type { TeslaAuthService } from "../auth/teslaAuth.js";

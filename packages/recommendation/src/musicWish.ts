@@ -4,8 +4,8 @@ import type {
   MusicWishSource,
   MusicWishStatus,
   SongCandidate,
-} from "@ai-journey-dj/core";
-import { normalizeText, songKey } from "@ai-journey-dj/core";
+} from "@longplay/core";
+import { normalizeText, songKey } from "@longplay/core";
 import type { RecommendationPolicy } from "./index.js";
 
 export type { MusicWishIntent, MusicWishSource, MusicWishStatus };

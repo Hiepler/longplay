@@ -96,7 +96,7 @@ describe("fetchLyrics", () => {
       title: "One Kiss - Radio Edit",
       fetchImpl,
     });
-    expect(captured?.ua).toMatch(/AI-Journey-DJ\/\S+ \(\+https?:\/\//);
+    expect(captured?.ua).toMatch(/Longplay\/\S+ \(\+https?:\/\//);
     expect(captured?.url).toContain("artist_name=Calvin%20Harris");
     expect(captured?.url).toContain("track_name=One%20Kiss");
     expect(captured?.url).not.toContain("feat");

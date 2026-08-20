@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 
 loadDotenv({ path: resolve(fileURLToPath(new URL(".", import.meta.url)), "../../../.env") });
 
-import { simulatedTelemetry } from "@ai-journey-dj/telemetry";
+import { simulatedTelemetry } from "@longplay/telemetry";
 
 const apiBaseUrl = process.env.API_BASE_URL ?? "http://localhost:3000";
 const token = process.env.SIMULATOR_TOKEN ?? "local-dev-simulator-token";

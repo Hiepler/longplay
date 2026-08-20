@@ -10,7 +10,7 @@ export function buildMediaMetadata(
   track: { title: string; artist: string; albumArtUrl?: string } | undefined
 ): MediaMetadataInit {
   return {
-    title: track?.title ?? "AI Journey DJ",
+    title: track?.title ?? "Longplay",
     artist: track?.artist ?? "",
     album: undefined,
     artwork: track?.albumArtUrl ? [{ src: track.albumArtUrl }] : []

@@ -6,7 +6,7 @@ function clientWith(fetchImpl: typeof fetch): OpenMusicClient {
   return new OpenMusicClient({
     musicBrainzBaseUrl: "https://musicbrainz.test/ws/2",
     listenBrainzBaseUrl: "https://listenbrainz.test/1",
-    userAgent: "AIJourneyDJ-test/0.0.0",
+    userAgent: "Longplay-test/0.0.0",
     fetchImpl
   });
 }
