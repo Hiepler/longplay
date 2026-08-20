@@ -4,7 +4,7 @@ import { join } from "node:path";
 
 import { afterEach, describe, expect, it } from "vitest";
 
-import { normalizeText } from "@ai-journey-dj/core";
+import { normalizeText } from "@longplay/core";
 
 import { buildApp } from "../src/app.js";
 import { loadConfig } from "../src/config/env.js";

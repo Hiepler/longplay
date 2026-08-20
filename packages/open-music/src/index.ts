@@ -1,4 +1,4 @@
-import type { SongCandidate } from "@ai-journey-dj/core";
+import type { SongCandidate } from "@longplay/core";
 
 export interface OpenMusicOptions {
   musicBrainzBaseUrl: string;

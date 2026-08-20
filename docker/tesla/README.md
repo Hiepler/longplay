@@ -20,7 +20,7 @@ to dispatch records into Mosquitto/MQTT:
 For local work without a vehicle, use:
 
 ```bash
-npm run telemetry:sim -w @ai-journey-dj/api
+npm run telemetry:sim -w @longplay/api
 ```
 
 The simulator emits the same normalized event shape used by the backend.

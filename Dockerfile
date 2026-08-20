@@ -13,7 +13,7 @@ RUN npm install --no-audit --no-fund
 
 # Build the web SPA bundle → apps/web/dist (served by the API at runtime).
 # Use the bundle-only build (Vite); type-checking is enforced separately in dev/CI.
-RUN npm run build:bundle -w @ai-journey-dj/web
+RUN npm run build:bundle -w @longplay/web
 
 ENV NODE_ENV=production
 ENV API_HOST=0.0.0.0

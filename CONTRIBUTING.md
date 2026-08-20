@@ -1,4 +1,4 @@
-# Contributing to AI Journey DJ
+# Contributing to Longplay
 
 Thanks for your interest in contributing! Issues and pull requests are welcome. This project is a
 self-hosted, non-commercial, single-user experiment, so contributions that keep it easy to run,
@@ -77,6 +77,6 @@ Then:
 
 ## Reporting bugs and security issues
 
-- Functional bugs: open a [GitHub issue](https://github.com/Hiepler/AiJourneyDj/issues) using the
+- Functional bugs: open a [GitHub issue](https://github.com/Hiepler/longplay/issues) using the
   bug template.
 - Security vulnerabilities: **do not** open a public issue — follow [SECURITY.md](SECURITY.md).

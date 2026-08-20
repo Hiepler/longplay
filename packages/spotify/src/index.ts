@@ -1,5 +1,5 @@
-import type { ResolvedTrack, SongCandidate } from "@ai-journey-dj/core";
-import { normalizeText, songKey } from "@ai-journey-dj/core";
+import type { ResolvedTrack, SongCandidate } from "@longplay/core";
+import { normalizeText, songKey } from "@longplay/core";
 
 export interface SpotifyTrackSearchResult {
   id: string;
@@ -798,7 +798,7 @@ export class MockSpotifyAdapter implements SpotifyAdapter {
     return [
       {
         id: "mock-webplayer",
-        name: "AI Journey DJ (Browser)",
+        name: "Longplay (Browser)",
         type: "Computer",
         isActive: true,
         isRestricted: false,

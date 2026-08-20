@@ -1,7 +1,7 @@
 import { createAPIClient } from "@tidal-music/api";
 
-import type { ResolvedTrack, SongCandidate } from "@ai-journey-dj/core";
-import { normalizeText } from "@ai-journey-dj/core";
+import type { ResolvedTrack, SongCandidate } from "@longplay/core";
+import { normalizeText } from "@longplay/core";
 
 export interface TidalTrackSearchResult {
   id: string;

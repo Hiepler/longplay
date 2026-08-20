@@ -31,18 +31,18 @@ describe("static SPA serving", () => {
   it("serves index.html for non-API GET routes and keeps API routes JSON", async () => {
     const webDir = mkdtempSync(join(tmpdir(), "ai-journey-dj-webdist-"));
     tmpDirs.push(webDir);
-    writeFileSync(join(webDir, "index.html"), "<!doctype html><title>JourneyDJ</title>");
+    writeFileSync(join(webDir, "index.html"), "<!doctype html><title>Longplay</title>");
     process.env.WEB_DIST_DIR = webDir;
 
     const { app } = await buildApp(testConfig());
 
     const root = await app.inject({ method: "GET", url: "/" });
     expect(root.statusCode).toBe(200);
-    expect(root.body).toContain("JourneyDJ");
+    expect(root.body).toContain("Longplay");
 
     const spaRoute = await app.inject({ method: "GET", url: "/cockpit" });
     expect(spaRoute.statusCode).toBe(200);
-    expect(spaRoute.body).toContain("JourneyDJ");
+    expect(spaRoute.body).toContain("Longplay");
 
     // API still serves JSON (health) and 404s unknown API paths instead of the SPA.
     const health = await app.inject({ method: "GET", url: "/health" });

@@ -1199,7 +1199,7 @@ export function App() {
             <Music2 size={20} />
           </span>
           <span className="brand-name">
-            Journey<b>DJ</b>
+            Long<b>play</b>
           </span>
         </div>
         <div className="chips">
@@ -1211,7 +1211,7 @@ export function App() {
           {activeJourneyId && detail?.playbackSession?.status === "external" ? (
             <span
               className="chip warn"
-              title="A track is playing in Spotify outside the journey — the DJ pauses curation until a journey song plays again."
+              title="A track is playing in Spotify outside the journey — Longplay pauses curation until a journey song plays again."
             >
               <Radio size={15} /> External playback
             </span>

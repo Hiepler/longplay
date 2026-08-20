@@ -1,4 +1,4 @@
-import { buildMusicalBrief, MultiLensSongScout } from "@ai-journey-dj/recommendation";
+import { buildMusicalBrief, MultiLensSongScout } from "@longplay/recommendation";
 
 const scout = new MultiLensSongScout({
   apiKey: process.env.GEMINI_API_KEY,

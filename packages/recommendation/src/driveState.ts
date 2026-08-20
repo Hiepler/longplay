@@ -1,4 +1,4 @@
-import type { DriveMode, DriveStateAssessment, NormalizedTelemetryEvent } from "@ai-journey-dj/core";
+import type { DriveMode, DriveStateAssessment, NormalizedTelemetryEvent } from "@longplay/core";
 
 /**
  * Deterministic, zero-token drive-state classifier for the Adaptive Drive Mode.

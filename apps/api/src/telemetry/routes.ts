@@ -1,12 +1,12 @@
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
 
-import type { NormalizedTelemetryEvent } from "@ai-journey-dj/core";
+import type { NormalizedTelemetryEvent } from "@longplay/core";
 import {
   normalizeTeslaPayload,
   speedBucket,
   temperatureBucket,
-} from "@ai-journey-dj/telemetry";
+} from "@longplay/telemetry";
 
 import type { AppConfig } from "../config/env.js";
 import type { JourneyService } from "../journeys/journeyService.js";

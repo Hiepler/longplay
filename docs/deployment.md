@@ -7,16 +7,19 @@ one origin (port 3000). One image, one domain — ideal for the Tesla browser an
 
 1. In Coolify: New → **Application** → connect this Git repo + branch.
 2. **Build Pack: Dockerfile** (the repo root `Dockerfile`).
-3. **Port:** `3000`. **Domain:** `aijourneydj.ruhrco.de` → Coolify provisions Let's Encrypt TLS.
+3. **Port:** `3000`. **Domain:** `longplay.example.com` → Coolify provisions Let's Encrypt TLS.
 4. **Persistent Storage:** add a volume mounted at `/data` (SQLite lives here).
 5. **Environment variables** (production values; see `.env.example`):
    - `APP_SECRET` (long random), `DATABASE_PATH=/data/ai-journey-dj.db`
-   - `API_BASE_URL=https://aijourneydj.ruhrco.de`, `APP_BASE_URL=https://aijourneydj.ruhrco.de`, `CORS_ORIGIN=https://aijourneydj.ruhrco.de`
-   - `SPOTIFY_MOCK=false`, `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_REDIRECT_URI=https://aijourneydj.ruhrco.de/auth/spotify/callback`
+   - `ADMIN_API_TOKEN` (long random) — **required** for the Tesla admin routes in the next section.
+     It defaults to empty, and an empty token makes every admin route answer `403`, so leaving it
+     unset breaks Tesla onboarding rather than opening it up.
+   - `API_BASE_URL=https://longplay.example.com`, `APP_BASE_URL=https://longplay.example.com`, `CORS_ORIGIN=https://longplay.example.com`
+   - `SPOTIFY_MOCK=false`, `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_REDIRECT_URI=https://longplay.example.com/auth/spotify/callback`
    - `XAI_MOCK=false`, `GEMINI_API_KEY`
-   - Tesla: `TESLA_FLEET_ENABLED=true`, `TESLA_CLIENT_ID`, `TESLA_CLIENT_SECRET`, `TESLA_REDIRECT_URI=https://aijourneydj.ruhrco.de/auth/tesla/callback`, `TESLA_PUBLIC_KEY_PEM`
+   - Tesla: `TESLA_FLEET_ENABLED=true`, `TESLA_CLIENT_ID`, `TESLA_CLIENT_SECRET`, `TESLA_REDIRECT_URI=https://longplay.example.com/auth/tesla/callback`, `TESLA_PUBLIC_KEY_PEM`
 6. **Healthcheck path:** `/health`.
-7. Deploy, then verify `https://aijourneydj.ruhrco.de/health` returns `{ "ok": true }` and the app UI loads at `/`.
+7. Deploy, then verify `https://longplay.example.com/health` returns `{ "ok": true }` and the app UI loads at `/`.
 8. Continue with the Tesla onboarding (sections 4-5): verify the public-key URL, `POST /auth/tesla/register-partner`, `/auth/tesla/login`.
 
 ### Coolify / Traefik: Basic Auth without breaking Tesla or admin `curl`
@@ -30,7 +33,7 @@ Add a **second Traefik router** (same service/port as the app, **priority 1000**
 
 ```text
 traefik.http.routers.tesla-admin-<coolify-id>.entryPoints=https
-traefik.http.routers.tesla-admin-<coolify-id>.rule=Host(`aijourneydj.ruhrco.de`) && (Path(`/auth/tesla/fleet-status`) || Path(`/auth/tesla/register-partner`) || Path(`/auth/tesla/register-telemetry`))
+traefik.http.routers.tesla-admin-<coolify-id>.rule=Host(`longplay.example.com`) && (Path(`/auth/tesla/fleet-status`) || Path(`/auth/tesla/register-partner`) || Path(`/auth/tesla/register-telemetry`))
 traefik.http.routers.tesla-admin-<coolify-id>.priority=1000
 traefik.http.routers.tesla-admin-<coolify-id>.middlewares=gzip
 traefik.http.routers.tesla-admin-<coolify-id>.service=https-0-<coolify-id>
@@ -42,7 +45,7 @@ Redeploy, then verify (no `-u`, only admin token):
 
 ```bash
 curl -sS -XPOST -H "Authorization: Bearer $ADMIN_API_TOKEN" \
-  https://aijourneydj.ruhrco.de/auth/tesla/fleet-status
+  https://longplay.example.com/auth/tesla/fleet-status
 ```
 
 Expected: HTTP **200** (or **403** if the token is wrong — not **401** from Traefik).

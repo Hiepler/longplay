@@ -2,7 +2,7 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-import type { JourneyRecord, MusicWish } from "@ai-journey-dj/core";
+import type { JourneyRecord, MusicWish } from "@longplay/core";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { migrate, openDatabase } from "../src/db/database.js";

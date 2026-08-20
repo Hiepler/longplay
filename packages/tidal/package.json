@@ -1,5 +1,5 @@
 {
-  "name": "@ai-journey-dj/tidal",
+  "name": "@longplay/tidal",
   "version": "0.1.0",
   "type": "module",
   "license": "MIT",
@@ -13,7 +13,7 @@
     "lint": "eslint src --ext .ts"
   },
   "dependencies": {
-    "@ai-journey-dj/core": "0.1.0",
+    "@longplay/core": "0.1.0",
     "@tidal-music/api": "^0.25.0"
   },
   "devDependencies": {

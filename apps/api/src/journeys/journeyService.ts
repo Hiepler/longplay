@@ -12,9 +12,9 @@ import type {
   SongCandidate,
   StreamingProvider,
   TasteProfile,
-} from "@ai-journey-dj/core";
-import { normalizeText, songKey } from "@ai-journey-dj/core";
-import { derivePhase } from "@ai-journey-dj/telemetry";
+} from "@longplay/core";
+import { normalizeText, songKey } from "@longplay/core";
+import { derivePhase } from "@longplay/telemetry";
 import {
   playbackOwnership,
   reconcilePlaybackModel,
@@ -24,7 +24,7 @@ import {
   detectJourneyMoment,
   type JourneyMoment,
 } from "../playback/moments.js";
-import { TidalResolver, type TidalAdapter } from "@ai-journey-dj/tidal";
+import { TidalResolver, type TidalAdapter } from "@longplay/tidal";
 import {
   SpotifyResolver,
   isSpotifyDeviceNotFoundError,
@@ -33,12 +33,12 @@ import {
   type SpotifyAdapter,
   type SpotifyAlbum,
   type SpotifyDevice,
-} from "@ai-journey-dj/spotify";
+} from "@longplay/spotify";
 import type {
   OpenMusicClient,
   NoopOpenMusicClient,
-} from "@ai-journey-dj/open-music";
-import type { SongScout } from "@ai-journey-dj/recommendation";
+} from "@longplay/open-music";
+import type { SongScout } from "@longplay/recommendation";
 import {
   assessDriveState,
   applyMusicWishesToPolicy,
@@ -65,7 +65,7 @@ import {
   type AlbumSource,
   type LastfmChartClient,
   type RecommendationPolicy,
-} from "@ai-journey-dj/recommendation";
+} from "@longplay/recommendation";
 
 /** Default familiarity↔discovery mix for a new drive — between "light" and "balanced". */
 export const DEFAULT_TASTE_WEIGHT = 0.4;
@@ -3432,7 +3432,7 @@ export class JourneyService {
         this.store.audit(
           journeyId,
           "spotify.playback_external",
-          "External track playing; DJ curation paused.",
+          "External track playing; Longplay curation paused.",
           {
             activeProviderTrackId: state.activeProviderTrackId,
           },
@@ -3521,7 +3521,7 @@ export class JourneyService {
     const date = journey.createdAtIso.slice(0, 10);
     const playlist = await this.spotifyAdapter.createPlaylist({
       accessToken,
-      name: `AI Journey DJ — ${journey.destination} · ${date}`,
+      name: `Longplay — ${journey.destination} · ${date}`,
       description: `Telemetry-aware soundtrack generated for ${journey.destination}.`,
     });
     this.store.updateJourneySpotifyPlaylist(
@@ -3861,7 +3861,7 @@ export class JourneyService {
     const accessToken = await this.tidalAuth.getAccessToken();
     const playlist = await this.tidalAdapter.createPlaylist({
       accessToken,
-      name: `AI Journey DJ - ${destination}`,
+      name: `Longplay - ${destination}`,
       description: `Generated for ${destination}. Updated in 5-track rolling batches.`,
       countryCode: this.config.TIDAL_COUNTRY_CODE,
       idempotencyKey: `playlist-${journeyId}`,

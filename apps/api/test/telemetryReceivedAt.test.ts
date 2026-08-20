@@ -5,7 +5,7 @@ import { join } from "node:path";
 import type {
   JourneyRecord,
   NormalizedTelemetryEvent,
-} from "@ai-journey-dj/core";
+} from "@longplay/core";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { migrate, openDatabase } from "../src/db/database.js";

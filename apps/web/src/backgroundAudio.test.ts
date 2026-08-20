@@ -14,7 +14,7 @@ describe("buildMediaMetadata", () => {
 
   it("falls back gracefully with no track / no artwork", () => {
     const meta = buildMediaMetadata(undefined);
-    expect(meta.title).toBe("AI Journey DJ");
+    expect(meta.title).toBe("Longplay");
     expect(meta.artwork).toEqual([]);
   });
 });

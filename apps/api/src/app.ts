@@ -10,16 +10,16 @@ import Fastify, { type FastifyReply, type FastifyRequest } from "fastify";
 import {
   NoopOpenMusicClient,
   OpenMusicClient,
-} from "@ai-journey-dj/open-music";
+} from "@longplay/open-music";
 import {
   LastfmChartClient,
   createSongScout,
-} from "@ai-journey-dj/recommendation";
+} from "@longplay/recommendation";
 import {
   MockSpotifyAdapter,
   OfficialSpotifyAdapter,
-} from "@ai-journey-dj/spotify";
-import { MockTidalAdapter, OfficialTidalAdapter } from "@ai-journey-dj/tidal";
+} from "@longplay/spotify";
+import { MockTidalAdapter, OfficialTidalAdapter } from "@longplay/tidal";
 
 import type { AppConfig } from "./config/env.js";
 import { appBaseUrl } from "./http/appBaseUrl.js";
@@ -99,7 +99,7 @@ export async function buildApp(config: AppConfig) {
         musicBrainzBaseUrl: config.MUSICBRAINZ_BASE_URL,
         listenBrainzBaseUrl: config.LISTENBRAINZ_BASE_URL,
         userAgent:
-          "AIJourneyDJ/0.1.0 (https://github.com/ai-journey-dj/ai-journey-dj)",
+          "Longplay/0.1.0 (https://github.com/ai-journey-dj/ai-journey-dj)",
       });
   const lastfmCharts = new LastfmChartClient({
     apiKey: config.LASTFM_API_KEY,
@@ -232,7 +232,7 @@ export async function buildApp(config: AppConfig) {
     return reply.type("text/html").send(`<!doctype html>
       <html>
         <head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=${returnBase}/?spotify=connected"></head>
-        <body><a href="${returnBase}/?spotify=connected">Return to AI Journey DJ</a></body>
+        <body><a href="${returnBase}/?spotify=connected">Return to Longplay</a></body>
       </html>`);
   });
 
@@ -291,7 +291,7 @@ export async function buildApp(config: AppConfig) {
     }
     return reply.type("text/html").send(`<!doctype html>
       <html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=${returnBase}/?tesla=connected"></head>
-      <body><a href="${returnBase}/?tesla=connected">Return to AI Journey DJ</a></body></html>`);
+      <body><a href="${returnBase}/?tesla=connected">Return to Longplay</a></body></html>`);
   });
 
   app.post("/auth/tesla/disconnect", async () => {
@@ -471,7 +471,7 @@ export async function buildApp(config: AppConfig) {
     return reply.type("text/html").send(`<!doctype html>
       <html>
         <head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=${returnBase}/?tidal=connected"></head>
-        <body><a href="${returnBase}/?tidal=connected">Return to AI Journey DJ</a></body>
+        <body><a href="${returnBase}/?tidal=connected">Return to Longplay</a></body>
       </html>`);
   });
 

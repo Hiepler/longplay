@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import type { MusicWish } from "@ai-journey-dj/core";
+import type { MusicWish } from "@longplay/core";
 import {
   applyMusicWishesToPolicy,
   candidatesFromMusicWishes,

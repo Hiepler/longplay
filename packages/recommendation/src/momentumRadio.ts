@@ -1,5 +1,5 @@
-import type { SongCandidate } from "@ai-journey-dj/core";
-import { normalizeText } from "@ai-journey-dj/core";
+import type { SongCandidate } from "@longplay/core";
+import { normalizeText } from "@longplay/core";
 
 import { mulberry32 } from "./variety.js";
 import { looksLikeSpokenWord } from "./spokenWord.js";

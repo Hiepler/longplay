@@ -1,5 +1,5 @@
-import type { JourneyContext } from "@ai-journey-dj/core";
-import { normalizeText } from "@ai-journey-dj/core";
+import type { JourneyContext } from "@longplay/core";
+import { normalizeText } from "@longplay/core";
 
 import type { TimeBand, TripArc } from "./context-signals.js";
 

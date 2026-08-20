@@ -6,7 +6,7 @@ import type {
   NormalizedTelemetryEvent,
   SpeedBucket,
   TemperatureBucket,
-} from "@ai-journey-dj/core";
+} from "@longplay/core";
 
 export function hashVehicleId(vehicleId: string, secret: string): string {
   return createHash("sha256")

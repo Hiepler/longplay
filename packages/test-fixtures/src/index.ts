@@ -1,5 +1,5 @@
-import type { JourneyContext, SongCandidate } from "@ai-journey-dj/core";
-import { simulatedTelemetry } from "@ai-journey-dj/telemetry";
+import type { JourneyContext, SongCandidate } from "@longplay/core";
+import { simulatedTelemetry } from "@longplay/telemetry";
 
 export const fixtureJourneyContext: JourneyContext = {
   destination: "Lago di Garda",

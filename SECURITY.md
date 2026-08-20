@@ -1,6 +1,6 @@
 # Security Policy
 
-AI Journey DJ is a self-hosted application that handles sensitive material on the operator's own
+Longplay is a self-hosted application that handles sensitive material on the operator's own
 infrastructure: Spotify/TIDAL OAuth tokens, a Last.fm key, an LLM API key, and — when enabled —
 read-only Tesla Fleet API credentials and a vehicle public key. Credentials are encrypted at rest in
 SQLite with `APP_SECRET`. Because each install is operated by its owner, the most important security
@@ -11,7 +11,7 @@ boundary is your own deployment (see [`docs/deployment.md`](docs/deployment.md))
 **Please do not open a public issue for security problems.**
 
 Report privately via GitHub's
-[**Report a vulnerability**](https://github.com/Hiepler/AiJourneyDj/security/advisories/new) flow
+[**Report a vulnerability**](https://github.com/Hiepler/longplay/security/advisories/new) flow
 (Security → Advisories). This opens a private advisory visible only to the maintainers.
 
 When reporting, please include:

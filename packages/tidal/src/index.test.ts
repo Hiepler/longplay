@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import type { SongCandidate } from "@ai-journey-dj/core";
+import type { SongCandidate } from "@longplay/core";
 
 import { MockTidalAdapter, TidalResolver, bestMatch, isMockTidalPlaylistId } from "./index.js";
 
