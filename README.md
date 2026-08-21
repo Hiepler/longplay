@@ -18,9 +18,9 @@ Every "smart" playlist I tried picks a vibe once and then keeps serving it. On a
 is wrong within twenty minutes, and skipping songs at 130 km/h is not something I want to be doing.
 
 So the queue here is built as a setlist with a shape: an opener that sets the mood, tracks that carry
-momentum, a bridge, one deliberate outlier, and something that lands when you arrive. What makes that
-possible is reading the drive as a trajectory rather than a snapshot — which is also where the name
-comes from. A drive is an LP side, not a shuffle.
+momentum, a bridge, one deliberate outlier, and something that lands when you arrive. That only works
+if you read the drive as a trajectory instead of a snapshot. Which is also where the name comes from.
+A drive is an LP side, not a shuffle.
 
 ## How it works
 
@@ -34,8 +34,8 @@ Tesla telemetry  ->  musical brief  ->  lens selection  ->  LLM finds real track
 ```
 
 Everything left of the LLM step is pure TypeScript, seeded and unit-tested. The model never sees the
-brief object — it receives a short text instruction and returns candidate tracks for an intent the
-engine already fixed.
+brief object. It gets a short text instruction and returns candidate tracks for an intent the engine
+has already fixed.
 
 ### The musical brief
 
@@ -45,12 +45,13 @@ words. No tokens.
 The important bit is that it reads trends, not the latest value. Recent telemetry snapshots give a
 pace trend (`accelerating` / `slowing` / `steady`) and an ETA trend (`approaching` / `steady`), plus a
 drive phase (`departure`, `cruise`, `golden_hour`, `focus`, `arrival`, `rest`). Accelerating pushes
-energy up. Slowing eases it off. An approaching ETA tips the brief into a resolving register. It is
-dead reckoning applied to music: derive the state from the course, not from one fixed reading.
+energy up, slowing eases it off, and an ETA that is closing in tips the whole brief into a resolving
+register. It is dead reckoning applied to music: derive the state from the course, not from one fixed
+reading.
 
-On top of that sits a drive story with five acts — `opening`, `act_one`, `interlude`, `climax`,
-`finale` — picked from elapsed time against planned duration, so a two-hour trip and a nine-hour trip
-have different shapes rather than the same loop repeated.
+On top of that sits a drive story with five acts (`opening`, `act_one`, `interlude`, `climax`,
+`finale`), picked from elapsed time against planned duration. A two-hour trip and a nine-hour trip
+end up with different shapes instead of the same loop repeated.
 
 ### Lens selection and scoring
 
@@ -59,38 +60,33 @@ running the same four. Among them: a geo-soundtrack lens (artists with a real co
 route), a local-language lens (Italian near Garda, French near Montpellier), low-distraction,
 cinematic warmth, steady momentum, a timeless anchor, a leftfield bridge, a deep-cut explorer, a
 resolving-arrival lens, and a Disney/film singalong lens for kids mode. The chosen ones run as
-parallel Gemini calls, and the geo, local-language, current and deep-cut lenses are web-grounded via
-Google Search so the tracks are real and actually exist.
+parallel Gemini calls. The geo, local-language, current and deep-cut lenses are web-grounded via
+Google Search, so the tracks that come back are real and actually exist.
 
-Every candidate comes back with two things.
-
-A **role** — one of `anchor`, `momentum`, `bridge`, `surprise`, `resolution` — so each pick has a
-function in the arc rather than just being next in a list.
-
-A **score** across `contextFit`, `telemetryFit`, `tasteFit`, `diversityGain`, `novelty` and a
-`fatiguePenalty`, along with the drive signals that influenced it. Both are stored per candidate in
-SQLite, so after a drive you can query why any given song got picked. The cockpit shows the short
-version: a server-composed "why this song" line.
+Every candidate carries a role, one of `anchor`, `momentum`, `bridge`, `surprise`, `resolution`, so
+each pick has a function in the arc rather than just being next in a list. It also carries a score
+across `contextFit`, `telemetryFit`, `tasteFit`, `diversityGain`, `novelty` and a `fatiguePenalty`,
+plus the drive signals that influenced it. Both get stored per candidate in SQLite, so after a drive
+you can go back and query why any given song got picked. The cockpit shows the short version: a
+server-composed "why this song" line.
 
 A diversity balancer then spreads the selection across decades, genres and artists before resolving
 on Spotify. Search results are cached, so a ten-hour drive does not hit rate limits.
 
-Other things the engine does:
+A few other things worth naming. No song plays twice per journey, enforced by exact track ID and by a
+normalized song key, so "Song" and "Song (Live / Extended / Remaster)" count as the same song. A
+cross-journey artist ledger also de-prioritizes artists you heard on recent drives.
 
-**No song plays twice per journey.** Enforced by exact track ID and by a normalized song key, so
-"Song" and "Song (Live / Extended / Remaster)" count as the same song. A cross-journey artist ledger
-also de-prioritizes artists you heard on recent drives.
-
-**Momentum Radio** walks the Last.fm similar-artist graph out from what is currently playing, and
-inverts popularity — it samples ranks 5–30 rather than the top hits — to reach the
+Momentum Radio walks the Last.fm similar-artist graph out from whatever is playing and inverts
+popularity, sampling ranks 5–30 instead of the top hits. The point is to land on the
 great-but-not-obvious neighbors of music you already like.
 
-**Your Spotify top artists** feed a favored-genre signal, blended in through an adjustable
-Familiar / Discover slider in the UI.
+Your Spotify top artists feed a favored-genre signal, blended in through a Familiar/Discover slider
+in the UI.
 
-**AI calls only happen when the vibe actually changes.** Routine buffer top-ups reuse the existing
+AI calls only happen when the vibe actually changes. Routine buffer top-ups reuse the existing
 candidate pool. The engine keeps a five-track forward window and only appends, since Spotify's API
-cannot reorder or remove queued items.
+cannot reorder or remove what is already queued.
 
 ### Telemetry
 
@@ -102,14 +98,14 @@ proxy). Streaming becomes primary when enabled, with polling as automatic fallba
 Mapped signals: speed, outside temperature, battery, autopilot state, charging state, navigation
 destination and ETA, live route traffic delay, predicted range at arrival, and cabin media volume as a
 quiet-cabin hint. Streaming adds longitudinal acceleration, brake pedal and hazard lights, which is
-enough to tell stop-and-go apart from a smooth glide. Raw GPS is converted into a coarse region
+enough to tell stop-and-go apart from a smooth glide. Raw GPS gets converted into a coarse region
 server-side and then dropped.
 
 Those trends feed straight back into the brief and the lens choice, which is where the two halves
 meet. A phase change re-curates the queue on its own. It never wakes a sleeping car.
 
-**Journey moments** sit on the same signal stream and shape the next set without hard-cutting the
-current song: `traffic_jam`, `traffic_release`, `golden_hour`, `temp_swing`, `border_crossing`,
+Journey moments sit on the same signal stream and shape the next set without hard-cutting the current
+song: `traffic_jam`, `traffic_release`, `golden_hour`, `temp_swing`, `border_crossing`,
 `charge_approach`, `charge_resume`, `arrival`. Crossing into Italy gets you a cockpit banner and local
 music. A detected charge stop starts a new journey leg and resets the arc, so the drive after the
 supercharger opens with its own build instead of continuing a finale.
@@ -139,25 +135,26 @@ The UI is built for the Tesla landscape touchscreen: large tap targets, glanceab
 real telemetry last arrived. No typing while driving, so moods are presets and destinations come from
 recent-trip quick-picks.
 
-- **Tap-to-steer** chips for faster, singalong, stay-awake, drive phase and the Familiar/Discover mix
-  — each one visibly re-tunes the queue.
-- **Music wishes** by text or voice, parsed into artist boosts, avoids, tempo shifts or mood nudges
+- **Tap-to-steer** chips for faster, singalong, stay-awake, drive phase and the Familiar/Discover
+  mix, each one visibly re-tuning the queue.
+- **Music wishes** by text or voice, parsed into artist boosts, avoids, tempo shifts or mood nudges,
   with a confirmation step and a track-based expiry.
 - **Spotify Connect device picker** for the in-browser player, your phone, or the car's native
   Spotify app, with full transport control of whichever device is selected.
-- **Kids mode and synced lyrics** — clean singalong bias, LRCLIB-backed karaoke.
-- **Background playback** survives the Tesla browser being minimized, via a silent keep-alive plus
-  MediaSession, which also makes the car's mini-player skip buttons work.
-- **Journey playlist mirroring** into a private Spotify playlist named after the trip, so you can
-  replay a drive later.
-- Spotify, AI, Last.fm and telemetry failures all degrade quietly. The music does not stop because a
-  poll failed. Every engine feature is individually env-gated, defaults on, so you can A/B your own
-  setup.
+
+Kids mode biases toward clean singalongs, and lyrics come from LRCLIB. Background playback survives
+the Tesla browser being minimized via a silent keep-alive plus MediaSession, which is also what makes
+the car's mini-player skip buttons work. Every curated track gets mirrored into a private Spotify
+playlist named after the trip, so you can replay a drive later.
+
+Spotify, AI, Last.fm and telemetry failures all degrade quietly, because the music should not stop
+just because a poll failed. Every engine feature is individually env-gated and defaults on, so you can
+A/B your own setup.
 
 ## Quick start
 
-Mock mode needs no credentials at all — no Tesla, no Spotify, no LLM. You can start a journey and
-watch the queue logic run.
+Mock mode needs no credentials at all. No Tesla, no Spotify, no LLM. You can start a journey and watch
+the queue logic run.
 
 Requires Node.js `>=22.13.0` and npm `>=10`.
 
@@ -179,21 +176,20 @@ npm run build
 
 ## Going live
 
-**Spotify** needs Premium. Create an app, add `https://<domain>/auth/spotify/callback`, then set
+Spotify needs Premium. Create an app, add `https://<domain>/auth/spotify/callback`, then set
 `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET` and `SPOTIFY_MOCK=false`. Scopes include `user-top-read`
-for personalization and `playlist-modify-private` for the journey playlist, so reconnect once after
-upgrading from an older version.
+for personalization and `playlist-modify-private` for the journey playlist, so reconnect once if you
+are upgrading from an older version.
 
-**The AI scout**: set `XAI_MOCK=false` and `GEMINI_API_KEY`. The default is `SONG_SCOUT=multilens`.
-Grok is an optional fallback via `SONG_SCOUT=xai` and `XAI_API_KEY`.
+For the AI scout, set `XAI_MOCK=false` and `GEMINI_API_KEY`. `SONG_SCOUT=multilens` is the default;
+Grok works as an optional fallback via `SONG_SCOUT=xai` and `XAI_API_KEY`. Last.fm needs
+`LASTFM_API_KEY` for geo/tag charts and Momentum Radio, and those sources degrade gracefully without
+it.
 
-**Last.fm**: set `LASTFM_API_KEY` for geo/tag charts and Momentum Radio. Without it those sources
-degrade gracefully.
-
-**Tesla** is optional for local development and required for real vehicle signals. Fleet API polling
-(`TESLA_FLEET_ENABLED=true`) is the simplest path; Fleet Telemetry streaming
+Tesla is optional for local development and required for real vehicle signals. Fleet API polling
+(`TESLA_FLEET_ENABLED=true`) is the simplest path. Fleet Telemetry streaming
 (`TESLA_TELEMETRY_ENABLED=true`) is lower latency but needs more infrastructure. Setup and deployment
-for both — Docker, Coolify — are in [`docs/deployment.md`](docs/deployment.md). The repo ships a
+for both, Docker and Coolify, are in [`docs/deployment.md`](docs/deployment.md). The repo ships a
 single-container `Dockerfile` where the API serves the SPA, plus an `.env.example` template.
 
 `GET /health` confirms the active scout and which connections are live.
@@ -228,12 +224,12 @@ Credentials are encrypted at rest in SQLite under `APP_SECRET`. Tesla access is 
 
 ## Does it actually work?
 
-Honestly: I don't know beyond my own experience. The hypothesis was that music which continuously
-fits the actual drive makes for a better drive, and maybe shifts something measurable in specific
-situations — a calmer soundtrack in stop-and-go, a more engaging one on a monotonous night highway.
-So far that is ~4000 km, n=1, nothing measured. What the repo does is make the question testable: the
-telemetry side and the music side are both observable in the same system. The hypothesis, prior work
-and an experiment outline are in [`docs/research.md`](docs/research.md).
+Honestly, I don't know beyond my own experience. The hypothesis was that music which continuously fits
+the actual drive makes for a better drive, and maybe shifts something measurable in specific
+situations: a calmer soundtrack in stop-and-go, a more engaging one on a monotonous night highway. So
+far that is ~4000 km, n=1, nothing measured. What the repo does is make the question testable, since
+the telemetry side and the music side are both observable in the same system. The hypothesis, prior
+work and an experiment outline are in [`docs/research.md`](docs/research.md).
 
 ## Limitations
 
@@ -242,7 +238,7 @@ processing, or cap BPM, because Tesla access is read-only. It is not a safety sy
 of improved driving performance.
 
 The Fleet API has no rain, wiper or autopilot-engagement field, so weather is inferred from outside
-temperature. Polling reacts at poll cadence; streaming is near-real-time but still not hard real time.
+temperature. Polling reacts at poll cadence. Streaming is near-real-time but still not hard real time.
 
 Spotify's Web API cannot reorder or remove queued items, so the engine only appends forward.
 Re-curating affects what comes next, not what is already queued.
